@@ -1,0 +1,88 @@
+
+/* -------------
+-------------------------
+   Layout
+   -------------------------------------- */
+
+   .head{
+      text-align: center;
+      position: none;
+      height: 100px;
+   }
+
+   .head h4{
+      color: white;
+      margin-top: 25px;
+      font-size: 40px;
+   }
+
+   .w1{
+      height: 70px;
+      background-color: black;
+      margin-top: 120px;
+      text-align: center;
+      padding: 10px;
+   }
+
+   #count{
+      /*margin-top: 150px;*/
+   }
+
+   img{
+      height: 250px;
+      width: 200px;
+      border: solid;
+   }
+
+   td,th {
+      font-size: 13px;
+      font-weight: bold;
+   }
+
+   #create th,td{
+      text-align: center;
+   }
+   #count th,td{
+      text-align: center;
+   }
+   #create td{
+      padding-top: 20px;
+   }
+   #create{
+      text-align: center;
+   }
+
+   #myModal label{
+      margin-top: 20px;
+   }
+
+   
+
+
+/* --------------------------------------
+   Typography
+   -------------------------------------- */
+
+
+/* --------------------------------------
+   Navbar
+   -------------------------------------- */
+   
+   
+/* --------------------------------------
+   Carousel
+   ----------------------------------
+   ---- */
+
+/* --------------------------------------
+   Media Queries
+   -------------------------------------- */
+
+/* Portrait & landscape phone */
+@media (max-width: 768px) {
+   .head h4{
+      
+      font-size: 20px;
+   }
+
+}
