@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-
+	<title>
+		Employee Data
+	</title>
 	<!-- sourcing the jquery file -->
 	<script type="text/javascript" src="jquery-3.1.0.js"></script>
 
@@ -13,16 +14,12 @@
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="includes/css/bootstrap-glyphicons.css" rel="stylesheet">
 	
-		
-	<!-- Custom CSS -->
-	<link href="includes/css/styles.css" rel="stylesheet">
-	
-		
-	<!-- Include Modernizr in the head, before any other Javascript -->
-	
-	<script src="includes/js/modernizr-2.6.2.min.js"></script>
+	<!-- <script src="includes/js/modernizr-2.6.2.min.js"></script> -->
 	<!-- Bootstrap JS -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Custom CSS -->
+	<link href="includes/css/styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -30,70 +27,65 @@
 			<h4>Employee DataBase</h4>
 		</div>
 
-
-
 		<div class="container">
 			<div class="well w1">
-				<form action="#" class="navbar-form">
-					<!-- <input type="text" class="form-control" placeholder="Search for movies..." id="s"> -->
+				<form class="navbar-form" id="f1">
+					<input type="text" id="s">
 					<button type="submit" class="btn btn-default tab">
-						Show Full DataBase
+						Search for data
 					</button>
-					<button type="submit" class="btn btn-default add">
+					<button type="button" class="btn btn-default add">
 						Add new Data
 					</button>
 				</form>		
 			</div>
 		</div>
 
+
+		<!-- Table showing the full data-->
 		<div class="container-fluid" id="count">
 			<form action="#" class="navbar-form">
-				<table  id="info" class="table table-striped">
-					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Age</th>
-						<th>Gender</th>
-						<th>Company</th>
-						<th>Email</th>
-						<th>Phone</th>
-						<th>Address</th>
-						<th>Registered</th>
-						<th>Update</th>
-						<th>Delete</th>
-					</tr>
-				</table>
-			</form>			
-		</div>
-
-		<div class="container-fluid" id="create">
-			<form action="#" class="navbar-form">
-				<table class="table table-striped">
-					<tr>
-						<th>Name</th>
-						<th>Age</th>
-						<th>Gender</th>
-						<th>Company</th>
-						<th>Email</th>
-						<th>Phone</th>
-						<th>Address</th>
-						<th>Registered</th>
-					</tr>
-					<tr>
-						<td><input type="text"></td>
-						<td><input type="text"></td>
-						<td><input type="text"></td>
-						<td><input type="text"></td>
-						<td><input type="text"></td>
-						<td><input type="text"></td>
-						<td><input type="text"></td>
-						<td><input type="text"></td>
-					</tr>
-				</table>
-				<button class="btn btn-primary" id="#new">Create New Data</button>
+				<div class="table-responsive">
+					<table  id="info" class="table table-responsive table-striped">
+						<!-- populated using javascript -->
+					</table>
+				</div>
 			</form>			
 		</div>
 		
+
+		<!-- Table for creating new data-->
+		<div class="container-fluid" id="create">
+			<form action="#" class="navbar-form">
+				<table class="table table-bordered">
+					<tr>
+						<th>Name</th>
+						<th>Age</th>
+						<th>Gender</th>
+						<th>Company</th>
+						<th>Email</th>
+						<th>Phone</th>
+						<th>Address</th>
+						<th>Registered</th>
+					</tr>
+					<tr>
+						<td><input type="text" id="Name"></td>
+						<td><input type="text" id="Age"></td>
+						<td><input type="text" id="Gender"></td>
+						<td><input type="text" id="Company"></td>
+						<td><input type="text" id="Email"></td>
+						<td><input type="text" id="Phone"></td>
+						<td><input type="text" id="Address"></td>
+						<td><input type="text" id="Registered"></td>
+
+					</tr>
+				</table>
+				<button class="btn btn-primary" id="new">Create New Data</button>
+			</form>			
+		</div>
+		
+
+	<!-- Modal body for updating-->
 	<div class="modal fade" id="myModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -124,12 +116,12 @@
 						<label for="Registered">Registered</label><br>
 						<input type="text" class="form-control" id="Registered">
 
-						<button type="submit" class="btn btn-default" id="update">
-							<span class="glyphicon glyphicon-thumbs-up"></span>
+						<input type="text" class="form-control" id="invisible" style="display:none">
+
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="update">
+							Update
 						</button>
 					</form>
-
-					
 												
 				</div> <!-- end of modal-body -->	
 
@@ -139,114 +131,7 @@
 		</div><!-- </div> end of modal-dialog -->
 	</div> <!-- end of myModal -->
 
-
-
-
-<script type="text/javascript">
-	
-	(function(){
-
-			$('#count').hide();
-			$('#create').hide();
-			var title=$("#s").val();	
-				$.ajax({
-					type:'GET',
-					url:'http://localhost:8081/emp',
-					success: function(data) {
-
-						// console.log(data);
-						var trHTML = '';
-						var c=1;
-						for(var i=0;i<data.length;i++)
-						{ 
-							
-							trHTML = '<tr><td>'+data[i].id+'</td><td>'+data[i].name+'</td><td>'+data[i].age+'</td><td>'+data[i].gender+'</td><td>'+data[i].company+'</td><td>'+data[i].email+'</td><td>'+data[i].phone+'</td><td>'+data[i].address+'</td><td>'+data[i].registered+'</td><td><button href="#myModal" data-toggle="modal" class="btn btn-info" id="up'+c+'">Update</button></td><td><button class="btn btn-danger" id="dl'+c+'">Delete</button></td></tr>';
-
-							$('#info').append(trHTML);
-
-							$('div#count td button#up'+c+'').click(function(){
-								var x=$(this).attr('id');
-								x=x.substring(2);
-								var a=parseInt(x,10)-1;
-								$.ajax({
-								type:'GET',
-								url:'http://localhost:8081/emp',
-								success: function(data) {
-											$('div#myModal div.modal-body input#ID').val(x);
-											$('div#myModal div.modal-body input#Name').val(data[a].name);
-											$('div#myModal div.modal-body input#Age').val(data[a].age);
-											$('div#myModal div.modal-body input#Gender').val(data[a].gender);
-											$('div#myModal div.modal-body input#Company').val(data[a].company);
-											$('div#myModal div.modal-body input#Email').val(data[a].email);
-											$('div#myModal div.modal-body input#Phone').val(data[a].phone);
-											$('div#myModal div.modal-body input#Address').val(data[a].address);
-											$('div#myModal div.modal-body input#Registered').val(data[a].registered);
-
-							}});//end of inner ajax
-								console.log("hi"+x);
-
-							});
-
-							$('div#count td button#dl'+c+'').click(function(){
-								var x=$(this).attr('id');
-								console.log("hi"+x);
-							});
-
-							c++;
-						}
-					}// end of success
-				});//end of ajax
-
-				$('button#update').click(function(){
-
-				 var id=$('div#myModal div.modal-body input#ID').val();
-
-				 	var name=$('div#myModal div.modal-body input#Name').val();
-					var age=$('div#myModal div.modal-body input#Age').val();
-					var gender=$('div#myModal div.modal-body input#Gender').val();
-					var company=$('div#myModal div.modal-body input#Company').val();
-					var email=$('div#myModal div.modal-body input#Email').val();
-					var phone=$('div#myModal div.modal-body input#Phone').val();
-					var address=$('div#myModal div.modal-body input#Address').val();
-					var registered=$('div#myModal div.modal-body input#Registered').val();
-
-
-					// console.log(typeOf id);
-
-
-
-
-
-
-
-				});//end of click button#update
-
-				
-
-			}());// end of anonymous function
-
-
-			$(".tab").click(function(){
-				$('#create').hide();
-				$('#count').show();
-				
-			});
-
-			$(".add").click(function(){
-				$('#count').hide();
-				$('#create').show();
-				console.log($(".add"));
-				console.log($('div#count td button#up'+1+''));		
-			});
-
-
-			
-
-			
-
-
-
-</script>
+<script type="text/javascript" src="includes/js/script.js"></script>
 
 </body>
 </html>
