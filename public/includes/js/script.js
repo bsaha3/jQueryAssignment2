@@ -60,14 +60,18 @@
 				});//end of click button#update	
 			}());// end of anonymous function
 
+			var d=1;
+
 			//event for showing the data
 			$("#f1").submit(function(e){
 				$('#create').hide();
+				full();	
+				// $('#count').addClass('list-of-posts');
 				$('#count').show();
 
 				e.preventDefault();
 
-				full();	
+				
 			});
 
 			//event for showing the create table
@@ -121,15 +125,16 @@
 			}
 			else
 			{
-				var trHTML = '<tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Company</th><th>Email</th><th>Phone</th><th>Address</th><th>Registered</th><th>Update</th><th>Delete</th></tr>';
+				var trHTML = '<tr class="post"><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Company\
+				</th><th>Email</th><th>Phone</th><th>Address</th><th>Registered</th><th>Update</th><th>Delete</th></tr>';
 				$('#info').append(trHTML);
-
+				d=1;
 				$.ajax({
 					type:'GET',
 					url:'http://localhost:8081/emp?q='+s,
 					success: function(data) {
-						trHTML = '',
-							c=1;
+						trHTML = '';
+						var	c=1,e=1;
 							if(data.length==0)
 							{
 								alert("No records found..")
@@ -137,10 +142,25 @@
 
 						for(var i=0;i<data.length;i++)
 						{ 	
+							if(e==13)
+							{
+								d++;
+								e=1;
+							}
+							e++;
 
-							trHTML = '<tr><td>'+data[i].id+'</td><td>'+data[i].name+'</td><td>'+data[i].age+'</td><td>'+data[i].gender+'</td><td>'+data[i].company+'</td><td>'+data[i].email+'</td><td>'+data[i].phone+'</td><td>'+data[i].address+'</td><td>'+data[i].registered+'</td><td><button href="#myModal" data-toggle="modal" class="btn btn-info" id="up'+c+'">Update</button></td><td><button class="btn btn-danger" id="dl'+c+'">Delete</button></td></tr>';
+							trHTML = '<tr class="'+d+'"><td data-title="ID">'+data[i].id+'</td><td data-title="Name">\
+							'+data[i].name+'</td><td data-title="Age">'+data[i].age+'</td>\
+							<td data-title="Gender">'+data[i].gender+'</td><td data-title="Company">'+data[i].company+'</td>\
+							<td data-title="Email">'+data[i].email+'</td>\
+							<td data-title="Phone">'+data[i].phone+'</td><td data-title="Address">'+data[i].address+'</td>\
+							<td data-title="Registered">'+data[i].registered+'</td>\
+							<td data-title="Update"><button href="#myModal" data-toggle="modal" class="btn btn-info" id="up'+c+'">Update</button></td>\
+							<td data-title="Delete"><button class="btn btn-danger" id="dl'+c+'">Delete</button></td></tr>';
 
 							$('#info').append(trHTML);
+
+							
 
 							$('div#count td button#up'+c).addClass("bt"+data[i].id);
 
@@ -172,6 +192,7 @@
 
 							//button delete start
 							$('div#count td button#dl'+c+'').click(function(){
+								var deleteRow=$(this).parent().parent();
 								var x=$(this).attr('class');
 								
 								x=parseInt(x.substring(17));
@@ -180,20 +201,55 @@
 										type: 'DELETE', 
 									    dataType: 'json', // Set datatype - affects Accept header
 									    url: "http://localhost:8081/emp/"+x, // A valid URL
-									    headers: {"Content-Type": "application/json"} // 
+									    headers: {"Content-Type": "application/json"}, // 
+									    success:function(){
+
+											    	alert('deleted');
+													deleteRow.fadeOut(600, function(){
+													deleteRow.remove();
+													});
+									    		},
+									    error: 	function() {
+									    			alert("Error occurred");
+									    		}			
 									 });//end of inner ajax
-
-									alert('deleted');
-									var deleteRow=$(this).parent().parent();
-									deleteRow.fadeOut(600, function(){
-							            deleteRow.remove();
-							        });
-
 							});// end of delete button
 
 							c++;
 						}//for end
+
+						$("#info tr").not(':first').hide();
+						$('.1').show();
 					}// end of success
 				});//end of ajax
 			}
 		}//end of function for full database
+
+		var a=1;
+
+		//event for next page
+		$("#2").click(function(){
+				a++;
+				if(a>d)
+				{
+					a=1;
+				}
+
+				$("#info tr").not(':first').hide();
+				$('.'+a).show();
+				
+			});
+
+		//event for previous page
+		$("#1").click(function(){
+				a--;
+				if(a==0)
+				{
+					a=d;
+				}
+
+				$("#info tr").not(':first').hide();
+				$('.'+a).show();
+			});
+
+		 // $("#myTbl tr:not(first-child)").hide(); 

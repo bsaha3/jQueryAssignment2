@@ -37,6 +37,7 @@
 					<button type="button" class="btn btn-default add">
 						Add new Data
 					</button>
+					
 				</form>		
 			</div>
 		</div>
@@ -44,13 +45,20 @@
 
 		<!-- Table showing the full data-->
 		<div class="container-fluid" id="count">
+
 			<form action="#" class="navbar-form">
-				<div class="table-responsive">
-					<table  id="info" class="table table-responsive table-striped">
+				<div id="pagination">
+					<table  id="info" class="table table-responsive table-striped post-list">
 						<!-- populated using javascript -->
 					</table>
 				</div>
-			</form>			
+				<nav>
+				  <ul class="pager">
+				    <li><a id="1" type="button" style="cursor:pointer">Previous</a></li>
+				    <li><a id="2" type="button" style="cursor:pointer">Next</a></li>
+				  </ul>
+				</nav>
+			</form>		
 		</div>
 		
 
@@ -130,8 +138,10 @@
 			</div> <!-- end of modal content -->
 		</div><!-- </div> end of modal-dialog -->
 	</div> <!-- end of myModal -->
-
+<!-- <script type="text/javascript" src="pagination.js"></script> -->
 <script type="text/javascript" src="includes/js/script.js"></script>
+<!-- <script src="paginate.js"></script>
+<script src="custom.js"></script> -->
 
 </body>
 </html>
